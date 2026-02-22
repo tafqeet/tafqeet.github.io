@@ -1,0 +1,424 @@
+ <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أداة تفقيط الأرقام | تحويل الأرقام إلى حروف (عربي، إنجليزي، فرنسي)</title>
+    <meta name="description" content="أداة مجانية لـ تفقيط الأرقام باللغة العربية والانجليزية والفرنسية. تحويل الأرقام إلى حروف مع دعم العملات (تفقيط الأرقام بالجنيه، تفقيط الأرقام بالدولار بالانجليزي).">
+    <meta name="keywords" content="تفقيط, تفقيط الأرقام باللغة العربية, تفقيط الأرقام, تفقيط بالانجليزي, تفقيط الأرقام إلى حروف, تفقيط الأرقام بالفرنسية, تفقيط الأرقام باللغة العربية Excel, تفقيط الأرقام بالدولار بالانجليزي, تفقيط الأرقام بالجنيه">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --border: #cbd5e1;
+            --success: #10b981;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        body { background-color: #f1f5f9; color: var(--text-dark); line-height: 1.8; }
+        header { background-color: var(--primary); color: white; padding: 2rem 1rem; text-align: center; }
+        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 800; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; }
+        
+        /* Tool Styles */
+        .tool-card { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 3rem; border-top: 5px solid var(--primary); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 700; color: var(--text-dark); }
+        .form-control { width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; transition: 0.3s; }
+        .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
+        .row { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .col { flex: 1; min-width: 250px; }
+        button.convert-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 1rem; font-size: 1.2rem; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        button.convert-btn:hover { background: var(--primary-hover); }
+        .result-box { margin-top: 1.5rem; background: var(--secondary); padding: 1.5rem; border-radius: 8px; border: 1px dashed var(--border); min-height: 80px; font-size: 1.2rem; font-weight: 700; color: var(--primary); text-align: center; display: flex; align-items: center; justify-content: center; position: relative; }
+        .copy-btn { position: absolute; left: 10px; top: 10px; background: #e2e8f0; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; }
+        
+        /* SEO Content Styles */
+        .content-section { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .content-section h2 { color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; font-size: 1.8rem; border-bottom: 2px solid var(--secondary); padding-bottom: 0.5rem; }
+        .content-section h3 { color: var(--text-dark); margin-top: 1.5rem; margin-bottom: 0.8rem; font-size: 1.4rem; }
+        .content-section p { margin-bottom: 1rem; font-size: 1.1rem; color: #334155; }
+        .content-section ul { margin-right: 1.5rem; margin-bottom: 1.5rem; }
+        .content-section li { margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .code-box { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 8px; direction: ltr; text-align: left; font-family: monospace; overflow-x: auto; margin-bottom: 1rem; }
+        
+        footer { text-align: center; padding: 2rem; background: #1e293b; color: white; margin-top: 3rem; }
+        
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .tool-card, .content-section { padding: 1.5rem; }
+        }
+    </style>
+
+    <!-- Schema Markup for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "أداة تفقيط الأرقام",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "description": "أداة مجانية لتحويل الأرقام إلى حروف (تفقيط) باللغة العربية، الإنجليزية، والفرنسية مع دعم العملات مثل الجنيه والدولار.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "ما هو تفقيط الأرقام؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "التفقيط هو عملية تحويل الأرقام الحسابية إلى كلمات وحروف مقروءة، ويستخدم غالباً في الشيكات البنكية والعقود والمستندات الرسمية لمنع التزوير."
+        }
+      }, {
+        "@type": "Question",
+        "name": "كيف يمكن عمل تفقيط الأرقام باللغة العربية في Excel؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "برنامج الإكسيل لا يدعم التفقيط بشكل افتراضي، ولكن يمكن إضافته عن طريق استخدام أكواد VBA (الماكرو) أو باستخدام إضافات (Add-ins) مخصصة لتحويل الأرقام إلى نصوص."
+        }
+      }]
+    }
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>أداة تفقيط الأرقام الشاملة</h1>
+        <p>تحويل الأرقام إلى حروف بسهولة (عربي، إنجليزي، فرنسي) مع دعم العملات</p>
+    </header>
+
+    <div class="container">
+        <!-- The Tool -->
+        <section class="tool-card">
+            <div class="form-group">
+                <label for="numberInput">أدخل الرقم (يمكنك إدخال أرقام عشرية):</label>
+                <input type="number" id="numberInput" class="form-control" placeholder="مثال: 1540.50" step="any">
+            </div>
+            
+            <div class="row">
+                <div class="col form-group">
+                    <label for="languageSelect">اختر اللغة / العملة:</label>
+                    <select id="languageSelect" class="form-control">
+                        <option value="ar-general">أرقام عامة (عربي)</option>
+                        <option value="ar-egp">تفقيط الأرقام بالجنيه (مصري)</option>
+                        <option value="ar-sar">تفقيط الأرقام بالريال (سعودي)</option>
+                        <option value="en-general">أرقام عامة (تفقيط بالانجليزي)</option>
+                        <option value="en-usd">تفقيط الأرقام بالدولار بالانجليزي (USD)</option>
+                        <option value="fr-general">تفقيط الأرقام بالفرنسية</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="convert-btn" onclick="performTafqeet()">تحويل الرقم إلى حروف (تفقيط)</button>
+
+            <div class="result-box" id="resultBox">
+                <button class="copy-btn" onclick="copyResult()">نسخ النص</button>
+                <span id="outputText">النتيجة ستظهر هنا...</span>
+            </div>
+        </section>
+
+        <!-- Long form SEO Content -->
+        <article class="content-section">
+            <h2>ما هو تفقيط الأرقام؟</h2>
+            <p><strong>تفقيط الأرقام</strong> هو عملية لغوية ومحاسبية يتم فيها <strong>تحويل الأرقام إلى حروف</strong> (كلمات نَصيّة) بدلاً من كتابتها بالصيغة الرقمية المعتادة. كلمة "تفقيط" مشتقة من الكلمة الختامية "فقط لا غير" التي توضع في نهاية النص المكتوب لمنع أي تلاعب أو تزوير. يعتبر التفقيط خطوة لا غنى عنها في المعاملات المالية، الشيكات البنكية، السندات، والعقود القانونية.</p>
+
+            <h2>تفقيط الأرقام باللغة العربية</h2>
+            <p>يعد <strong>تفقيط الأرقام باللغة العربية</strong> من أكثر العمليات التي تتطلب دقة عالية بسبب قواعد اللغة العربية المعقدة التي تشمل التذكير والتأنيث، وحالات الإعراب (الرفع، النصب، الجر). أداة التفقيط الخاصة بنا مصممة لتقوم بقراءة الرقم وتحليله لغوياً لإنتاج نص عربي سليم خالٍ من الأخطاء النحوية، مما يسهل على المحاسبين والمحامين أعمالهم اليومية.</p>
+
+            <h2>تفقيط الأرقام بالجنيه (المصري)</h2>
+            <p>عند كتابة الشيكات أو الفواتير في مصر، يجب استخدام <strong>تفقيط الأرقام بالجنيه</strong>. الأداة المرفقة بالأعلى توفر خياراً مخصصاً للعملة المصرية، حيث تقوم بتحويل الرقم الصحيح إلى "جنيه مصري" والرقم العشري إلى "قرش". على سبيل المثال، إدخال الرقم (150.50) سيتم تفقيطه ليصبح: <em>"مائة وخمسون جنيهاً مصرياً وخمسون قرشاً فقط لا غير"</em>.</p>
+
+            <h2>تفقيط بالانجليزي (Number to Words)</h2>
+            <p>في التعاملات التجارية الدولية، ستحتاج حتماً إلى الـ <strong>تفقيط بالانجليزي</strong>. تتميز اللغة الإنجليزية بقواعد تفقيط أسهل نسبياً من العربية، وتستخدم بكثرة في الفواتير الموجهة للعملاء الأجانب، أو عند فتح اعتمادات مستندية.</p>
+            
+            <h3>تفقيط الأرقام بالدولار بالانجليزي</h3>
+            <p>من أهم استخدامات التفقيط الإنجليزي هو <strong>تفقيط الأرقام بالدولار بالانجليزي</strong>. إذا قمت باختيار (English USD) من القائمة العلوية، ستقوم الأداة بكتابة الرقم بصيغة الدولار والسنت. مثال للرقم (1050.25):<br>
+            <em>"One Thousand Fifty Dollars and Twenty-Five Cents Only."</em></p>
+
+            <h2>تفقيط الأرقام بالفرنسية</h2>
+            <p>للشركات التي تتعامل مع دول المغرب العربي (مثل المغرب، الجزائر، تونس) أو الدول الفرانكوفونية، وفرنا ميزة <strong>تفقيط الأرقام بالفرنسية</strong>. نظام الأرقام في اللغة الفرنسية يحتوي على بعض التعقيدات (مثل طريقة نطق الرقم 80 Quatre-vingts)، ولكن أداتنا تقوم بهذه العملية بضغطة زر واحدة لتوفير الجهد والوقت.</p>
+
+            <h2>تفقيط الأرقام باللغة العربية Excel</h2>
+            <p>يبحث الكثير من المحاسبين عن طريقة لعمل <strong>تفقيط الأرقام باللغة العربية Excel</strong>، حيث أن برنامج مايكروسوفت إكسيل لا يحتوي على دالة جاهزة (Function) تقوم بتحويل الأرقام إلى حروف بشكل افتراضي.</p>
+            <p><strong>كيف تقوم بذلك في الإكسيل؟</strong></p>
+            <ul>
+                <li><strong>استخدام أكواد VBA (الماكرو):</strong> وهي الطريقة الأشهر، حيث تقوم بنسخ كود برمجي مخصص للتفقيط ولصقه في محرر VBA لإنشاء دالة جديدة تُسمى عادة `Tafqeet()`.</li>
+                <li><strong>استخدام الوظائف الإضافية (Add-ins):</strong> توجد العديد من الملفات الجاهزة بصيغة (xlam) يمكن إضافتها للإكسيل لتقوم بتفعيل التفقيط مباشرة.</li>
+            </ul>
+            <p><em>نصيحة:</em> إذا كنت لا تجيد استخدام VBA في الإكسيل، يمكنك دائماً الاعتماد على أداتنا المجانية في هذه الصفحة لتفقيط الأرقام بسرعة ونسخها مباشرة إلى ملفاتك.</p>
+        </article>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2026 - أداة تفقيط الأرقام إلى حروف</p>
+    </footer>
+
+    <!-- JavaScript Logic for Tafqeet -->
+    <script>
+        // Copy to clipboard function
+        function copyResult() {
+            const text = document.getElementById("outputText").innerText;
+            if (text && text !== "النتيجة ستظهر هنا...") {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert("تم نسخ النص بنجاح!");
+                });
+            }
+        }
+
+        // Main function triggered by button
+        function performTafqeet() {
+            const numStr = document.getElementById("numberInput").value;
+            const langCurrency = document.getElementById("languageSelect").value;
+            const output = document.getElementById("outputText");
+
+            if (!numStr || isNaN(numStr)) {
+                output.innerText = "الرجاء إدخال رقم صحيح.";
+                return;
+            }
+
+            let num = parseFloat(numStr);
+            if (num < 0) {
+                output.innerText = "الرجاء إدخال رقم موجب.";
+                return;
+            }
+
+            let result = "";
+            let integerPart = Math.floor(num);
+            let decimalPart = Math.round((num - integerPart) * 100); // 2 decimal places
+
+            // Route to specific function based on selection
+            switch(langCurrency) {
+                case "ar-general":
+                    result = tafqeetArabic(integerPart) + formatArabicDecimals(decimalPart, "", "");
+                    result += " فقط لا غير.";
+                    break;
+                case "ar-egp":
+                    result = tafqeetArabic(integerPart) + " جنيهاً مصرياً" + formatArabicDecimals(decimalPart, "قرشاً", "قروش");
+                    result += " فقط لا غير.";
+                    break;
+                case "ar-sar":
+                    result = tafqeetArabic(integerPart) + " ريالاً سعودياً" + formatArabicDecimals(decimalPart, "هللة", "هللات");
+                    result += " فقط لا غير.";
+                    break;
+                case "en-general":
+                    result = tafqeetEnglish(integerPart);
+                    if (decimalPart > 0) result += " point " + tafqeetEnglish(decimalPart);
+                    result += " Only.";
+                    break;
+                case "en-usd":
+                    result = tafqeetEnglish(integerPart) + " Dollars";
+                    if (decimalPart > 0) result += " and " + tafqeetEnglish(decimalPart) + " Cents";
+                    result += " Only.";
+                    break;
+                case "fr-general":
+                    result = tafqeetFrench(integerPart);
+                    if (decimalPart > 0) result += " virgule " + tafqeetFrench(decimalPart);
+                    break;
+            }
+
+            // Remove multiple spaces and set output
+            output.innerText = result.replace(/\s+/g, ' ').trim();
+        }
+
+        /* --- ARABIC TAFQEET LOGIC --- */
+        function tafqeetArabic(number) {
+            if (number === 0) return "صفر";
+            
+            const ones = ["", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة"];
+            const tens = ["", "عشرة", "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"];
+            const hundreds = ["", "مائة", "مائتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة", "سبعمائة", "ثمانمائة", "تسعمائة"];
+            
+            function convertHundreds(n) {
+                let res = "";
+                let h = Math.floor(n / 100);
+                let rem = n % 100;
+                
+                if (h > 0) res += hundreds[h];
+                
+                if (rem > 0) {
+                    if (res !== "") res += " و ";
+                    if (rem === 10) {
+                        res += "عشرة";
+                    } else if (rem === 11) {
+                        res += "أحد عشر";
+                    } else if (rem === 12) {
+                        res += "اثنا عشر";
+                    } else if (rem < 20) {
+                        let unit = rem % 10;
+                        res += ones[unit] + " عشر";
+                    } else {
+                        let t = Math.floor(rem / 10);
+                        let u = rem % 10;
+                        if (u > 0) {
+                            res += ones[u] + " و " + tens[t];
+                        } else {
+                            res += tens[t];
+                        }
+                    }
+                }
+                return res;
+            }
+
+            let levels = ["", "ألف", "مليون", "مليار", "تريليون"];
+            let levelsPlural = ["", "آلاف", "ملايين", "مليارات", "تريليونات"];
+            let levelsDual = ["", "ألفان", "مليونان", "ملياران", "تريليونان"];
+            
+            let parts = [];
+            let levelIdx = 0;
+            
+            while (number > 0) {
+                let chunk = number % 1000;
+                if (chunk > 0) {
+                    let chunkText = "";
+                    if (levelIdx === 0) {
+                        chunkText = convertHundreds(chunk);
+                    } else {
+                        if (chunk === 1) {
+                            chunkText = levels[levelIdx];
+                        } else if (chunk === 2) {
+                            chunkText = levelsDual[levelIdx];
+                        } else if (chunk >= 3 && chunk <= 10) {
+                            chunkText = convertHundreds(chunk) + " " + levelsPlural[levelIdx];
+                        } else {
+                            chunkText = convertHundreds(chunk) + " " + levels[levelIdx];
+                        }
+                    }
+                    parts.push(chunkText);
+                }
+                number = Math.floor(number / 1000);
+                levelIdx++;
+            }
+            
+            return parts.reverse().join(" و ");
+        }
+
+        function formatArabicDecimals(decimals, singularCurrencyText, pluralCurrencyText) {
+            if (decimals === 0) return "";
+            if (singularCurrencyText === "") return " و " + tafqeetArabic(decimals);
+            
+            let text = " و " + tafqeetArabic(decimals) + " ";
+            if (decimals === 1 || decimals === 2) {
+                text = " و " + (decimals === 1 ? singularCurrencyText : singularCurrencyText + "ان");
+            } else if (decimals >= 3 && decimals <= 10) {
+                text += pluralCurrencyText;
+            } else {
+                text += singularCurrencyText;
+            }
+            return text;
+        }
+
+        /* --- ENGLISH TAFQEET LOGIC --- */
+        function tafqeetEnglish(num) {
+            if (num === 0) return "Zero";
+            
+            const a = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+            const b = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+            const scales = ["", "Thousand", "Million", "Billion", "Trillion"];
+
+            function convertBelowThousand(n) {
+                let word = "";
+                if (n > 99) {
+                    word += a[Math.floor(n / 100)] + " Hundred ";
+                    n = n % 100;
+                }
+                if (n > 0) {
+                    if (n < 20) {
+                        word += a[n];
+                    } else {
+                        word += b[Math.floor(n / 10)];
+                        if (n % 10 > 0) word += "-" + a[n % 10];
+                    }
+                }
+                return word.trim();
+            }
+
+            let word = "";
+            let scaleIdx = 0;
+            while (num > 0) {
+                let chunk = num % 1000;
+                if (chunk > 0) {
+                    let chunkWord = convertBelowThousand(chunk) + " " + scales[scaleIdx];
+                    word = chunkWord.trim() + " " + word;
+                }
+                num = Math.floor(num / 1000);
+                scaleIdx++;
+            }
+            return word.trim();
+        }
+
+        /* --- FRENCH TAFQEET LOGIC (Simplified core for common usage) --- */
+        function tafqeetFrench(num) {
+            if (num === 0) return "zéro";
+            const units = ["", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix-sept", "dix-huit", "dix-neuf"];
+            const tens = ["", "dix", "vingt", "trente", "quarante", "cinquante", "soixante", "soixante-dix", "quatre-vingts", "quatre-vingt-dix"];
+            
+            function convertBelowThousandFr(n) {
+                if (n === 0) return "";
+                if (n < 20) return units[n];
+                if (n < 100) {
+                    let ten = Math.floor(n/10);
+                    let unit = n % 10;
+                    if (ten === 7 || ten === 9) {
+                        return tens[ten-1] + (unit === 1 && ten === 7 ? " et " : "-") + units[unit+10];
+                    } else {
+                        let res = tens[ten];
+                        if (ten === 8 && unit === 0) return res;
+                        if (ten === 8) res = "quatre-vingt"; // drop 's'
+                        if (unit > 0) {
+                            res += (unit === 1 ? " et un" : "-" + units[unit]);
+                        }
+                        return res;
+                    }
+                }
+                let h = Math.floor(n / 100);
+                let rem = n % 100;
+                let res = "";
+                if (h === 1) res = "cent";
+                else res = units[h] + " cent" + (rem === 0 ? "s" : "");
+                
+                if (rem > 0) res += " " + convertBelowThousandFr(rem);
+                return res;
+            }
+
+            let scales = ["", "mille", "million", "milliard"];
+            let word = "";
+            let scaleIdx = 0;
+            
+            while(num > 0) {
+                let chunk = num % 1000;
+                if (chunk > 0) {
+                    let chunkWord = "";
+                    if (scaleIdx === 1 && chunk === 1) {
+                        chunkWord = "mille";
+                    } else {
+                        chunkWord = convertBelowThousandFr(chunk);
+                        if (scaleIdx > 0) {
+                            chunkWord += " " + scales[scaleIdx];
+                            if (chunk > 1 && scaleIdx > 1) chunkWord += "s"; // millions, milliards
+                        }
+                    }
+                    word = chunkWord + (word ? " " + word : "");
+                }
+                num = Math.floor(num / 1000);
+                scaleIdx++;
+            }
+            return word.trim();
+        }
+    </script>
+</body>
+</html> 
